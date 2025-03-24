@@ -100,7 +100,7 @@ export default function NewsFeed() {
 
         {/* Grid View (Cards) */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
-          {news.map((item) => (
+          {news?.map((item) => (
             <Card
               key={item.id}
               title={item.title}
@@ -125,7 +125,7 @@ export default function NewsFeed() {
               </p>
             </Card>
           ))}
-          {news.length === 0 && (
+          {news?.length === 0 && (
             <Alert
               message="No news articles found."
               type="info"
