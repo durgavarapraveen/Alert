@@ -46,7 +46,7 @@ export default function AdminSOSAlerts() {
 
   const fetchSOSAlerts = async () => {
     if (!backendAPIClient) {
-      console.error("API Client is undefined!");
+      console.error("Backend API client is not initialized.");
       return;
     }
 
@@ -66,29 +66,23 @@ export default function AdminSOSAlerts() {
           admin_longitude: adminCoordinates.longitude,
         },
       });
+      console.log("SOS Alerts:", response.data);
       setSosAlerts(response.data.sos_alerts);
     } catch (error) {
       console.error("Error fetching SOS alerts:", error);
-      toast.error("Failed to load SOS alerts.");
     }
     setLoading(false);
   };
 
   const fetchResolvedSOSAlerts = async () => {
-    if (!backendAPIClient) {
-      console.error("API Client is undefined!");
-      return;
-    }
-
     try {
       const response = await backendAPIClient.get(
         `${BACKEND_URL}/sos/resolved`
       );
-
+      console.log("Resolved SOS Alerts:", response.data);
       setResolvedSosAlerts(response.data.sos_alerts);
     } catch (error) {
       console.error("Error fetching resolved SOS alerts:", error);
-      toast.error("Failed to load resolved SOS alerts.");
     }
   };
 
@@ -235,13 +229,29 @@ export default function AdminSOSAlerts() {
               title: "Actions",
               key: "actions",
               render: (_, record) => (
-                <Button
-                  type="primary"
-                  danger
-                  onClick={() => handleResolveSOS(record.id)}
+                <div
+                  style={{ display: "flex", gap: "10px", alignItems: "center" }}
                 >
-                  Respond
-                </Button>
+                  <Button
+                    type="primary"
+                    danger
+                    onClick={() => handleResolveSOS(record.id)}
+                  >
+                    Respond
+                  </Button>
+                  {/* Open Location in Google Maps */}
+                  <Button
+                    type="link"
+                    onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps?q=${record.latitude},${record.longitude}`,
+                        "_blank"
+                      )
+                    }
+                  >
+                    View on Map
+                  </Button>
+                </div>
               ),
             },
           ]}
