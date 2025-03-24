@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import AuthForm from "./AuthForm";
 import axios from "axios";
 
-const BACKEND_URL = "http://localhost:8000"; // Replace with your backend URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // Replace with your backend URL
 
 const Register = () => {
   const handleRegister = async (values) => {

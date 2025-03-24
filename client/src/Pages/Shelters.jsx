@@ -17,7 +17,7 @@ import { toast } from "react-hot-toast";
 import Navbar from "../Components/Navbar";
 
 const { Option } = Select;
-const BACKEND_URL = "http://localhost:8000"; // Update with actual backend URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // Update with actual backend URL
 
 // Distance between two points in km
 const getDistance = (lat1, lon1, lat2, lon2) => {

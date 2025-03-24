@@ -17,7 +17,7 @@ import Navbar from "../Components/Navbar";
 
 const { Option } = Select;
 
-const BACKEND_URL = "http://localhost:8000"; // 🔥 Replace with actual backend URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // 🔥 Replace with actual backend URL
 
 const getDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // Radius of the Earth in km

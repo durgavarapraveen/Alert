@@ -11,7 +11,7 @@ import moment from "moment";
 import useBackendAPIClient from "../api";
 import AdminNavbar from "../Components/AdminNavbar";
 
-const BACKEND_URL = "http://localhost:8000"; // Replace with actual backend URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // Replace with actual backend URL
 
 export default function UploadShelters() {
   const [shelters, setShelters] = useState([]);
