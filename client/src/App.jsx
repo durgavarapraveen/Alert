@@ -4,7 +4,7 @@ import Login from "./auth/Login";
 import Home from "./Pages/Home";
 import Shelters from "./Pages/Shelters";
 import SOSAlert from "./Pages/sos";
-import FoodRegions from "./Pages/foodRegions";
+import FoodRegions from "./Pages/FoodRegions";
 import News from "./admin/News";
 import AdminShelters from "./admin/AdminShelters";
 import AdminFoodProvidingRegions from "./admin/AdminFood";
