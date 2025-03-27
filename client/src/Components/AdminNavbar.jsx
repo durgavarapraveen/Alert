@@ -2,9 +2,11 @@ import { useState } from "react";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import { Drawer, Button } from "antd";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context";
 
 export default function AdminNavbar() {
   const [open, setOpen] = useState(false);
+  const { accessToken } = useAuth(); // Assuming you have a useAuth hook to manage authentication
 
   return (
     <nav className="bg-blue-700 text-white shadow-lg">
@@ -24,18 +26,6 @@ export default function AdminNavbar() {
               onClick={() => setOpen(true)}
             />
           </div>
-
-          {/* 🖥️ Desktop Menu */}
-          {/* <div className="hidden md:flex space-x-8 items-center">
-            <NavItem to="/admin/news" label="Home" className="!text-black" />
-            <NavItem to="/admin/shelters" label="Shelters" />
-            <NavItem to="/admin/food" label="Food Providing Regions" />
-            <NavItem
-              to="/admin/sos"
-              label="SOS Alert"
-              className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
-            />
-          </div> */}
         </div>
       </div>
 
@@ -94,6 +84,26 @@ export default function AdminNavbar() {
             className="!bg-red-500 text-white px-4 py-2 rounded-lg !hover:bg-red-600 transition duration-300"
             onClick={() => setOpen(false)}
           />
+          {accessToken ? (
+            <NavItem
+              to="/"
+              label="Logout"
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+              onClick={() => {
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                localStorage.removeItem("username");
+                localStorage.removeItem("id");
+                window.location.reload();
+              }}
+            />
+          ) : (
+            <NavItem
+              to="/login"
+              label="Login"
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+            />
+          )}
         </div>
       </Drawer>
     </nav>

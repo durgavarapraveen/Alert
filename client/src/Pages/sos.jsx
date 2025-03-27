@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Spin, Input } from "antd";
 import { toast } from "react-hot-toast";
 import Navbar from "../Components/Navbar";
 import useBackendAPIClient from "../api";
+import { useAuth } from "../context";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // Replace with actual backend URL
 
@@ -10,6 +11,14 @@ export default function SOSAlert() {
   const [loading, setLoading] = useState(false);
   const [userCoordinates, setUserCoordinates] = useState(null);
   const [persons, setPersons] = useState(1); // Default 1 person
+  const { accessToken } = useAuth();
+
+  useEffect(() => {
+    if (!accessToken) {
+      toast.error("Please log in to access this feature.");
+      window.location.href = "/login"; // Redirect to login page
+    }
+  }, [accessToken]);
 
   const { backendAPIClient } = useBackendAPIClient();
 

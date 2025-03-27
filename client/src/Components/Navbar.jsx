@@ -2,8 +2,10 @@ import { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import { Drawer, Button } from "antd";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context";
 
 export default function Navbar() {
+  const { accessToken } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,6 +27,26 @@ export default function Navbar() {
               label="SOS Alert"
               className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
             />
+            {accessToken ? (
+              <NavItem
+                to="/"
+                label="Logout"
+                className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+                onClick={() => {
+                  localStorage.removeItem("accessToken");
+                  localStorage.removeItem("refreshToken");
+                  localStorage.removeItem("username");
+                  localStorage.removeItem("id");
+                  window.location.reload();
+                }}
+              />
+            ) : (
+              <NavItem
+                to="/login"
+                label="Login"
+                className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+              />
+            )}
           </div>
 
           {/* 📱 Mobile Menu Button */}
@@ -65,6 +87,28 @@ export default function Navbar() {
             className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
             onClick={() => setOpen(false)}
           />
+          {accessToken ? (
+            <NavItem
+              to="/"
+              label="Logout"
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+              onClick={() => {
+                setOpen(false);
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+                localStorage.removeItem("username");
+                localStorage.removeItem("id");
+                window.location.reload();
+              }}
+            />
+          ) : (
+            <NavItem
+              to="/login"
+              label="Login"
+              className="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition"
+              onClick={() => setOpen(false)}
+            />
+          )}
         </div>
       </Drawer>
     </nav>
